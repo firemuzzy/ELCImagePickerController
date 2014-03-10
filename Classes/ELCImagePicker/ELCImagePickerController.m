@@ -20,6 +20,7 @@
 - (id)initImagePicker
 {
     ELCAlbumPickerController *albumPicker = [[ELCAlbumPickerController alloc] initWithStyle:UITableViewStylePlain];
+    albumPicker.albumPickerDelegate = self;
     
     self = [super initWithRootViewController:albumPicker];
     if (self) {
@@ -116,6 +117,12 @@
         return YES;
     } else {
         return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+    }
+}
+
+- (void) elcAlbumPickerController:(ELCAlbumPickerController *)albumPicker failedWithError:(NSError *)error {
+    if (_imagePickerDelegate != nil && [_imagePickerDelegate respondsToSelector:@selector(elcImagePickerController:failedWithError:)]) {
+        [_imagePickerDelegate performSelector:@selector(elcImagePickerController:failedWithError:) withObject:self withObject:error];
     }
 }
 

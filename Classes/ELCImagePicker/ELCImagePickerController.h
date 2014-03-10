@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ELCAssetSelectionDelegate.h"
+#import "ELCAlbumPickerControllerDelegate.h"
 
 @class ELCImagePickerController;
 @class ELCAlbumPickerController;
@@ -23,6 +24,8 @@
  */
 - (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info;
 
+- (void)elcImagePickerController:(ELCImagePickerController *)picker failedWithError:(NSError *)error;
+
 /**
  * Called when image selection was cancelled, by tapping the 'Cancel' BarButtonItem.
  */
@@ -30,7 +33,7 @@
 
 @end
 
-@interface ELCImagePickerController : UINavigationController <ELCAssetSelectionDelegate>
+@interface ELCImagePickerController : UINavigationController <ELCAssetSelectionDelegate, ELCAlbumPickerControllerDelegate>
 
 @property (nonatomic, weak) id<ELCImagePickerControllerDelegate> imagePickerDelegate;
 @property (nonatomic, assign) NSInteger maximumImagesCount;

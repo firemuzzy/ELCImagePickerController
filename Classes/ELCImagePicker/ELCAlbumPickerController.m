@@ -66,9 +66,9 @@
             
             // Group Enumerator Failure Block
             void (^assetGroupEnumberatorFailure)(NSError *) = ^(NSError *error) {
-                
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Album Error: %@ - %@", [error localizedDescription], [error localizedRecoverySuggestion]] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
+                if (_albumPickerDelegate != nil && [_albumPickerDelegate respondsToSelector:@selector(elcAlbumPickerController:failedWithError:)]) {
+                    [_albumPickerDelegate performSelector:@selector(elcAlbumPickerController:failedWithError:) withObject:self withObject:error];
+                }
                 
                 NSLog(@"A problem occured %@", [error description]);	                                 
             };	
